@@ -12,6 +12,7 @@ export default function App() {
   const [myNumber,       setMyNumber]       = useState(null)
   const [name,           setName]           = useState('')
   const [rollNumber,     setRollNumber]     = useState('')
+  const [contactNumber,  setContactNumber]  = useState('')
   const [loading,        setLoading]        = useState(false)
   const [pageLoading,    setPageLoading]    = useState(true)
   const [toast,          setToast]          = useState(null)
@@ -65,6 +66,7 @@ export default function App() {
       .insert([{
         name:          name.trim(),
         roll_number:   rollNumber.trim() || null,
+        contact_number: contactNumber.trim() || null,
         jersey_number: selectedNumber,
       }])
       .select()
@@ -86,6 +88,7 @@ export default function App() {
       setSelectedNumber(null)
       setName('')
       setRollNumber('')
+      setContactNumber('')
     }
   }
 
@@ -137,6 +140,8 @@ export default function App() {
               setName={setName}
               rollNumber={rollNumber}
               setRollNumber={setRollNumber}
+              contactNumber={contactNumber}
+              setContactNumber={setContactNumber}
               onConfirm={handleConfirm}
               onCancel={() => setSelectedNumber(null)}
               loading={loading}
