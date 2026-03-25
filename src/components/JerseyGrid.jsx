@@ -73,7 +73,7 @@ export default function JerseyGrid({ takenNumbers, myNumber, onSelect, disabled 
             inputMode="numeric"
             value={customInput}
             onChange={handleChange}
-            placeholder="e.g. 07"
+            placeholder="Enter your jersey number"
             disabled={disabled || isMine}
             autoFocus
             className="flex-1 px-5 py-4 rounded-xl bg-[#1a1a26] border border-[#2a2a3d]
