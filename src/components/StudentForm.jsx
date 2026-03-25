@@ -85,7 +85,7 @@ export default function StudentForm({
         <div>
           <label className="block text-[11px] uppercase tracking-widest text-slate-500 mb-1.5">
             Roll Number
-            <span className="ml-1 text-slate-700 normal-case tracking-normal">(optional)</span>
+            <span className="ml-1 text-slate-700 normal-case tracking-normal"></span>
           </label>
           <input
             type="text"
@@ -102,7 +102,7 @@ export default function StudentForm({
         <div>
           <label className="block text-[11px] uppercase tracking-widest text-slate-500 mb-1.5">
             Contact Number
-            <span className="ml-1 text-slate-700 normal-case tracking-normal">(optional)</span>
+            <span className="ml-1 text-slate-700 normal-case tracking-normal"></span>
           </label>
           <div className="flex gap-2">
             {/* +91 prefix badge */}
@@ -115,7 +115,6 @@ export default function StudentForm({
               inputMode="numeric"
               value={contactNumber}
               onChange={handleContactChange}
-              placeholder="9876543210"
               maxLength={10}
               className={`flex-1 px-4 py-3 rounded-lg bg-[#1a1a26] border text-white
                          placeholder-slate-600 text-sm transition
