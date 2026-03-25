@@ -17,7 +17,7 @@ export default function App() {
   const [toast,          setToast]          = useState(null)
 
   const notify = (message, type = 'success') => setToast({ message, type })
-  const toSet  = (rows) => new Set(rows.map((r) => r.jersey_number))
+  const toSet  = (rows) => new Set(rows.map((r) => String(r.jersey_number)))
 
   // Fetch taken numbers on mount
   const fetchSelections = useCallback(async () => {

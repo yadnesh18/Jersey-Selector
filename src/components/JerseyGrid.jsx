@@ -1,7 +1,7 @@
 // src/components/JerseyGrid.jsx
 // ─────────────────────────────────────────────────────────────
-// Custom jersey number input — student types any number 1–100.
-// No grid; just a clean input + Pick button.
+// Custom jersey number input — student types any number.
+// Leading zeros are preserved (e.g. "07" stays "07").
 // ─────────────────────────────────────────────────────────────
 
 import { useState } from 'react'
@@ -15,32 +15,34 @@ export default function JerseyGrid({ takenNumbers, myNumber, onSelect, disabled 
     e.preventDefault()
     setCustomError('')
 
-    const num = parseInt(customInput, 10)
+    // Use the raw string so "07" is stored as "07", not 7
+    const raw = customInput.trim()
 
-    if (!customInput.trim() || isNaN(num)) {
+    if (!raw || isNaN(Number(raw))) {
       setCustomError('Please enter a valid number.')
       return
     }
-    if (takenNumbers.has(num)) {
-      setCustomError(`#${num} is already taken. Try another.`)
+    if (takenNumbers.has(raw)) {
+      setCustomError(`#${raw} is already taken. Try another.`)
       return
     }
     if (disabled) return
 
-    onSelect(num)
+    onSelect(raw)   // passes "07" as-is to parent
     setCustomInput('')
   }
 
   const handleChange = (e) => {
     setCustomError('')
     const val = e.target.value
+    // Allow up to 3 digits, including leading zeros like "07" or "007"
     if (val === '' || /^\d{1,3}$/.test(val)) setCustomInput(val)
   }
 
-  // Preview state of the typed number
-  const preview = parseInt(customInput, 10)
-  const isValid = !isNaN(preview) && preview >= 1 && preview <= 100
-  const isTaken = isValid && takenNumbers.has(preview)
+  // Preview state for the live status pill
+  const raw     = customInput.trim()
+  const isValid = raw.length > 0 && !isNaN(Number(raw))
+  const isTaken = isValid && takenNumbers.has(raw)
   const isMine  = myNumber !== null
 
   return (
@@ -67,20 +69,17 @@ export default function JerseyGrid({ takenNumbers, myNumber, onSelect, disabled 
         {/* Large number input + Pick button */}
         <div className="flex gap-3">
           <input
-            type="number"
-            min={1}
-            max={1000}
+            type="text"
+            inputMode="numeric"
             value={customInput}
             onChange={handleChange}
-            placeholder="1 – 100"
+            placeholder="e.g. 07"
             disabled={disabled || isMine}
             autoFocus
             className="flex-1 px-5 py-4 rounded-xl bg-[#1a1a26] border border-[#2a2a3d]
                        text-white placeholder-slate-600 text-2xl font-display font-bold text-center
                        focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/30
-                       disabled:opacity-40 disabled:cursor-not-allowed transition
-                       [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none
-                       [&::-webkit-inner-spin-button]:appearance-none"
+                       disabled:opacity-40 disabled:cursor-not-allowed transition"
           />
           <button
             type="submit"
@@ -94,7 +93,7 @@ export default function JerseyGrid({ takenNumbers, myNumber, onSelect, disabled 
         </div>
 
         {/* Live status pill */}
-        {customInput && isValid && (
+        {raw && isValid && (
           <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium
                            animate-fade-in border
                            ${isTaken
@@ -102,7 +101,7 @@ export default function JerseyGrid({ takenNumbers, myNumber, onSelect, disabled 
                              : 'bg-green-950 border-green-800 text-green-400'
                            }`}>
             <span>{isTaken ? '✕' : '✓'}</span>
-            {isTaken ? `#${preview} is already taken` : `#${preview} is available!`}
+            {isTaken ? `#${raw} is already taken` : `#${raw} is available!`}
           </div>
         )}
 
@@ -119,7 +118,7 @@ export default function JerseyGrid({ takenNumbers, myNumber, onSelect, disabled 
             Taken numbers ({takenNumbers.size})
           </p>
           <div className="flex flex-wrap gap-1.5">
-            {[...takenNumbers].sort((a, b) => a - b).map((n) => (
+            {[...takenNumbers].sort().map((n) => (
               <span
                 key={n}
                 className="px-2 py-0.5 rounded bg-[#1a1a26] border border-[#2a2a3d]
