@@ -21,10 +21,6 @@ export default function JerseyGrid({ takenNumbers, myNumber, onSelect, disabled 
       setCustomError('Please enter a valid number.')
       return
     }
-    if (num < 1 || num > 100) {
-      setCustomError('Number must be between 1 and 100.')
-      return
-    }
     if (takenNumbers.has(num)) {
       setCustomError(`#${num} is already taken. Try another.`)
       return
@@ -73,7 +69,7 @@ export default function JerseyGrid({ takenNumbers, myNumber, onSelect, disabled 
           <input
             type="number"
             min={1}
-            max={100}
+            max={1000}
             value={customInput}
             onChange={handleChange}
             placeholder="1 – 100"
