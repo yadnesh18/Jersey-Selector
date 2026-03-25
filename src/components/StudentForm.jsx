@@ -129,13 +129,12 @@ export default function StudentForm({
 
           {/* Live validation feedback */}
           {contactNumber && !contactError && contactNumber.length === 10 && (
-            <p className="mt-1.5 text-xs text-green-500 animate-fade-in">✓ Valid Indian mobile number</p>
+            <p className="mt-1.5 text-xs text-green-500 animate-fade-in"></p>
           )}
           {contactError && (
             <p className="mt-1.5 text-xs text-red-400 animate-fade-in">{contactError}</p>
           )}
           <p className="mt-1 text-[11px] text-slate-700">
-            10-digit number starting with 6, 7, 8, or 9
           </p>
         </div>
 
