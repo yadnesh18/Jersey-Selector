@@ -47,7 +47,7 @@ export default function StudentForm({
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Enter your full name"
+            placeholder="Enter the name to be printed on the jersey"
             required
             autoFocus
             className="w-full px-4 py-3 rounded-lg bg-[#1a1a26] border border-[#2a2a3d]
@@ -67,7 +67,7 @@ export default function StudentForm({
             type="text"
             value={rollNumber}
             onChange={(e) => setRollNumber(e.target.value)}
-            placeholder="e.g. 2024CS042"
+
             className="w-full px-4 py-3 rounded-lg bg-[#1a1a26] border border-[#2a2a3d]
                        text-white placeholder-slate-600 text-sm
                        focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/50
